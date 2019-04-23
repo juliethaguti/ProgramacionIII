@@ -1,0 +1,19 @@
+INSERT INTO `proveedores`(`Numero`, `Nombre`, `Domicilio`, `Localidad`) VALUES (100,'Perez','Peron 876','Quilmes');
+INSERT INTO `proveedores`(`Nombre`, `Domicilio`, `Localidad`) VALUES ('Gimenez','Mitre 750','Avellaneda'),('Aguirre','Boedo 634','Bernal');
+INSERT INTO `envios`(`Numero`, `pNumero`, `Cantidad`) VALUES (100,1,500),(100,2,1500),(100,3,100),(101,2,55),(101,3,225),(102,1,600),(102,3,300);
+SELECT * FROM `productos` ORDER BY `pNombre` ASC
+SELECT * FROM `productos` ORDER BY `pNombre` DESC
+SELECT * FROM `proveedores`
+SELECT * FROM `envios` WHERE `Cantidad`> 200 AND `Cantidad`<=500
+SELECT SUM(`Cantidad`) FROM `envios`
+SELECT `pNumero` FROM `envios` LIMIT 3
+SELECT P.Nombre,R.pNombre FROM envios E,proveedores P,productos R WHERE E.Numero = P.Numero AND E.pNumero = R.Numero;
+SELECT E.Cantidad*P.Precio FROM envios E,productos P WHERE E.pNumero = P.Numero;
+SELECT `Cantidad` FROM envios E WHERE E.Numero = 102 AND E.pNumero = 1; 
+SELECT E.pNumero FROM envios E,proveedores P WHERE E.Numero = P.Numero AND P.Localidad='Avellaneda';
+SELECT Domicilio FROM `proveedores` WHERE Domicilio LIKE '%i%';
+SELECT Localidad FROM `proveedores` WHERE Localidad LIKE '%i%';
+INSERT INTO `productos`(`pNombre`, `Precio`, `Tamaño`) VALUES ('Chocolate',25.35,'Chico');
+INSERT INTO `proveedores`(`Nombre`, `Domicilio`, `Localidad`) VALUES ('Giraldo','San Juan 1854','Lanus');
+INSERT INTO `proveedores`(`Numero`, `Nombre`, `Domicilio`, `Localidad`) VALUES (107,'Rosales','Flores 20','La Plata');
+UPDATE `productos` SET Precio=97.50 WHERE Tamaño='Grande';
