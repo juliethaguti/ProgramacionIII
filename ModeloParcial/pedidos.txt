@@ -1,0 +1,8 @@
+cuaderno,12,1
+cuaderno,12,2
+lapiceros,36,3
+resma,1,2
+lapices,48,2
+mochila,2,3
+cartuchera,3,3
+lonchera,2,3
