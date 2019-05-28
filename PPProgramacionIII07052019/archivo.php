@@ -10,25 +10,42 @@ class Archivo{
     function addObject($object){
         
         $file = fopen($this->path,"a");
-        fwrite($file,"$object;");
+        fwrite($file,$object);
         fclose($file);
     }
 
     function readFile(){
+        
         if(file_exists($this->path)){
+            
+            $i = 0;
             $array = array();
-        $lectura = "";
-        $archivo = fopen($this->path,"r");
-        while(!feof($archivo)){
-            $lectura = fgets($archivo);
-        }
-        fclose($archivo);
-        $array = explode(";",$lectura);
-        return $array;
+            $archivo = fopen($this->path,"r");
+            while(!feof($archivo)){
+                $array[$i] = fgets($archivo);
+                $i++;
+            }
+            fclose($archivo);
+            return $array;
         }
         else{
             return 0;
         }
+    }
+
+    function writeFile($nuevoContenido){
+        
+        $file = fopen($this->path,"w");
+        foreach($nuevoContenido as $objeto){
+            fwrite($file,$objeto);
+        }
+        fclose($file);
+    }
+
+    function backUp($registro,$destino){
+        
+        $array = explode(",",$registro);
+        rename(trim($array[4]),$destino);
     }
 }
 ?>

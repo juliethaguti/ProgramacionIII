@@ -9,7 +9,7 @@ class Usuario{
     }
 
     function __toString(){
-        return $this->nombre.",".$this->clave;
+        return $this->nombre.",".$this->clave.PHP_EOL;
     }
 
     function ToJson(){
@@ -32,15 +32,26 @@ class Usuario{
         return $flag;
     }
 
-    function ocurrenciasClave($list){
+    function ocurrenciasUsuario($list){
         $flag = false;
         foreach($list as $user){
             $aux = explode(",",$user);
-            if($aux[1] == $this->clave && $this->ocurrenciasNombre($list,$this->nombre) == true){
+            if($aux[0] == $this->nombre && $aux[1] == $this->clave){
                 $flag = true;
             }
         }
         return $flag;
+    }
+
+    static function busquedaNombre($lista,$nombre){
+        $ocurrencias = 0;
+        foreach($lista as $user){
+            $aux = explode(",",$user);
+            if(strcasecmp($aux[0],$nombre) == 0){
+                $ocurrencias++;
+            }
+        }
+        return $ocurrencias;
     }
 }
 ?>

@@ -1,0 +1,3 @@
+1,LaPersitenciaDeLaMemoria,12400000,Martina,./ImagenProductos/LaPersitenciaDeLaMemoria.jpg
+2,LasMeninas,152000000,Javiera,./ImagenProductos/LasMeninas.jpg
+3,ElHijoDelHombre,152000000,Eleonora,./ImagenProductos/ElHijoDelHombre.jpg
