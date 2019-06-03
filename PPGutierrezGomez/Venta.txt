@@ -1,1 +1,5 @@
-5,www@jkdj.com,muzza,molde,3,585
+1,incubus@jdshui.com,jamon,molde,1,310
+2,incubus@jdshui.com,jamon,piedra,1,280
+3,incubus@jdshui.com,muzza,piedra,1,290
+4,incubus@jdshui.com,muzza,molde,1,300
+5,incubus@jdshui.com,especial,molde,1,270

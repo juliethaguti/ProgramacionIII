@@ -42,8 +42,30 @@ class Venta{
                     $id =$arrayAtributos[0];
                 }
             }
+            $id++;
         }
-        return $id+1;
+        return $id;
+    }
+
+    static function listarVentas($lista){
+        foreach($lista as $venta){
+            echo($venta);
+        }
+    }
+
+    static function listarVentasTipoSabor($lista,$tipo,$sabor){
+        foreach($lista as $venta){
+            $ventaArray = explode(",",$venta);
+            if($ventaArray[2] == $sabor && $ventaArray[3] == $tipo){
+                echo($venta);
+            }
+            elseif($ventaArray[2] == $sabor && empty($tipo)){
+                echo($venta);
+            }
+            elseif($ventaArray[3] == $tipo && empty($sabor)){
+                echo($venta);
+            }
+        }
     }
 }
 ?>

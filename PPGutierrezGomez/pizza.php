@@ -15,7 +15,7 @@ class Pizza{
         $this->id = $id;
 
         $ext = array_reverse(explode(".",$imagen["name"]));
-        $this->imagen = $this->sabor.".".$ext[0];
+        $this->imagen = $this->sabor."_".$this->tipo.".".$ext[0];
         move_uploaded_file($imagen["tmp_name"],"./ImagenPizza/".$this->imagen);
     }
 
@@ -56,30 +56,35 @@ class Pizza{
                     $id =$arrayAtributos[0];
                 }
             }
+            $id ++;
         }
-        return $id+1;
+        return $id;
     }
 
     static function busquedaPizza($lista,$tipo,$sabor){
-        $ocurrencias = 0;
         $ocurrenciasSabor = 0;
         $ocurrenciasTipo = 0;
         foreach($lista as $pizza){
             $aux = explode(",",$pizza);
-            if(strcasecmp($aux[1],$sabor)==0){
-                $ocurrenciasSabor++;
-                if(strcasecmp($aux[2],$tipo) == 0 ){
-                    $ocurrencias = $aux[4];
-                }
-                else{
-                    return "No hay ".$tipo;
-                }
+            if((strcasecmp($sabor,$aux[1])==0) && (strcasecmp($tipo,$aux[2]) == 0)){
+                return $aux[4];
             }
-            else{
-                return "No hay sabor".$sabor;
+            else if(strcasecmp($sabor,$aux[1])==0){
+                $ocurrenciasSabor++;
+            }
+            else if(strcasecmp($tipo,$aux[2]) == 0){
+                $ocurrenciasTipo++;
             }
         }
-        return $ocurrencias;
+        if($ocurrenciasSabor == 0 && $ocurrenciasTipo == 0){
+            echo("No hay ni sabor ".$sabor."ni tipo ".$tipo.PHP_EOL);
+        }
+        else if($ocurrenciasSabor == 0 && $ocurrenciasTipo != 0){
+            echo("No hay sabor ".$sabor.PHP_EOL);
+        }
+        else{
+            echo("No hay tipo ".$tipo.PHP_EOL);
+        }
     }
 
     static function obtenerRegistro($tipo,$sabor,$array){
@@ -88,20 +93,16 @@ class Pizza{
             $aux=explode(",",$objeto);
             if($sabor == $aux[1] && $tipo == $aux[2]){
                   
-                return $aux;
+                return $objeto;
             }
         }
         return null;
     }
 
-    static function modificar($array,$cantidad,$id){
-        echo($array);
-        foreach($array as $objeto){
-            $objetoArray = explode(",",$objeto);
-            if($objeto[0] == $id){
-                $objeto[4]=$cantidad;
-            }
-        }
+    static function modificar($array,$objetoAModificar,$atributosPizza,$cantidadRestante){
+        $nuevaPizza = $atributosPizza[0].",".$atributosPizza[1].",".$atributosPizza[2].",".$atributosPizza[3].",".$cantidadRestante.",".$atributosPizza[5];
+        $key = array_search($objetoAModificar,$array);
+        $array[$key]=$nuevaPizza;
         return $array;
     }
 }

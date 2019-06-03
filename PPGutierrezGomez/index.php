@@ -30,24 +30,26 @@ if(isset($_POST['caso']) && !empty($_POST['caso'])){
         }
         break;
 
-        case 'altaVenta':
+        case 'AltaVenta':
         $email = $_POST['email'];
         $sabor = $_POST['sabor'];
         $tipo = $_POST['tipo'];
         $cantidad = $_POST['cantidad'];
 
         $LecturaArchivo = $archivoPizza->readFile();
-        $id = Venta::nuevoId($LecturaArchivo);
+        $FileVenta = $archivoVenta->readFile();
+        $id = Venta::nuevoId($FileVenta);
         $cantidadExistente = Pizza::busquedaPizza($LecturaArchivo,$tipo,$sabor);
-        var_dump($LecturaArchivo);
+
         if($cantidadExistente != 0 && $cantidad<=$cantidadExistente){
+            
             $pizzaAModificar =Pizza::obtenerRegistro($tipo,$sabor,$LecturaArchivo);
+            $atributosPizza = explode(",",$pizzaAModificar);
             $cantidadRestante = $cantidadExistente - $cantidad;
-            $precioVenta = $cantidad*$pizzaAModificar[3];
+            $precioVenta = $cantidad*$atributosPizza[3];
             $venta = new Venta($id,$email,$sabor,$tipo,$cantidad,$precioVenta);
             $archivoVenta->addObject($venta);
-    
-            $nuevoArray = Pizza::modificar($LecturaArchivo,$cantidadRestante,$pizzaAModificar[0]);
+            $nuevoArray = Pizza::modificar($LecturaArchivo,$pizzaAModificar,$atributosPizza,$cantidadRestante);
             $archivoPizza->writeFile($nuevoArray);
         }
         break;
@@ -55,7 +57,6 @@ if(isset($_POST['caso']) && !empty($_POST['caso'])){
 }
 else if(isset($_GET['caso']) && !empty($_GET['caso'])){
     $caso = $_GET['caso'];
-    echo("llega");
     switch($caso){
         case 'PizzaConsultar':
         $sabor = $_GET['sabor'];
@@ -66,9 +67,19 @@ else if(isset($_GET['caso']) && !empty($_GET['caso'])){
         if($Retorno != 0){
             echo("Si hay");
         }
-        else{
-            echo("No existe Pizza");
-        }
+        break;
+
+        case 'ListadoDeVentas2':
+        $LecturaArchivo=$archivoVenta->readFile();
+        Venta::listarVentas($LecturaArchivo);
+        break;
+
+        case 'ListadoDeVentas':
+        $sabor = $_GET['sabor'];
+        $tipo = $_GET['tipo'];
+
+        $LecturaArchivo=$archivoVenta->readFile();
+        Venta::listarVentasTipoSabor($LecturaArchivo,$tipo,$sabor);
         break;
     }
 }

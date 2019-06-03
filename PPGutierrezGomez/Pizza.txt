@@ -1,3 +1,6 @@
-2,jamon,piedra,225,2,jamon.jpg
-3,especial,molde,300,3,especial.jpg
-4,muzza,molde,195,5,muzza.jpg
+1,especial,piedra,260,2,especial_piedra.jpg
+2,especial,molde,270,0,especial_molde.jpg
+3,jamon,piedra,280,2,jamon_piedra.jpg
+4,muzza,piedra,290,2,muzza_piedra.jpg
+5,muzza,molde,300,1,muzza_molde.jpg
+6,jamon,molde,310,0,jamon_molde.jpg
